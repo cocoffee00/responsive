@@ -1,0 +1,36 @@
+@media screen and ( min-width : 1024px) and ( max-width : 1439px) {
+  /* 기준 디바이스 : 1024px */
+  
+  
+    .head_box_wrapper { max-width: 936px; }
+  
+    .user_drop_down, .user_navibar form { display: none;}
+    
+    .user_drop_down.action,
+    .user_navibar form.action { display: block;}
+  
+    .search_btn_view.off, .cart_part_view, .user_drop_down li:first-child {display: none;}
+  
+  
+  
+  
+  /* =======================================슬라이드 */
+  
+  
+    .slide_box_wrapper {
+      min-width: 1024px; 
+      background-position: 50% 50%;
+      /* background-color: rgb(218, 179, 200); */
+    }
+
+    /* ============================================== */
+
+    .main_tab_wrapper {  max-width: 960px;   }
+  
+
+
+
+
+
+
+  }
