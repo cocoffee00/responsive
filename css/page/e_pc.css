@@ -1,0 +1,14 @@
+@media screen and (min-width : 1440px ) {
+  /* 기준 디바이스: 1440px */
+
+
+  .user_drop_down, .user_navibar form { display: none;}
+
+.user_drop_down.action,
+.user_navibar form.action { display: block;}
+
+.search_btn_view.off, .cart_part_view, .user_drop_down li:first-child {display: none;}
+
+  
+  
+}
