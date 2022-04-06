@@ -20,6 +20,8 @@
 document.addEventListener('scroll',FnTabFixed);
 
 
+var arrowIcon = document.querySelector('.arrowIcon');
+console.log(arrowIcon);
 
   
   tabBtnWrap.addEventListener('click',function(e){
@@ -31,12 +33,12 @@ document.addEventListener('scroll',FnTabFixed);
 
     
       if(tabBtnWrap.classList.contains('action') === true ){
-        tabBtnIcon.style.transform = 'rotate(180deg)';
-        tabBtnIcon.style.transition = '0.5s'
+        arrowIcon.style.transform = 'rotate(180deg)';
+        arrowIcon.style.transition = '0.5s'
         console.log('1:'+ tabBtnWrap.classList.contains('action'));
       }else {
-        tabBtnIcon.style.transform = 'rotate(1deg)';
-        tabBtnIcon.style.transition = 'all ease 1s'
+        arrowIcon.style.transform = 'rotate(1deg)';
+        arrowIcon.style.transition = 'all ease 1s'
         console.log('2:'+ tabBtnWrap.classList.contains('action'));
       }
   });
