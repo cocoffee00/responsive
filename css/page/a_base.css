@@ -335,6 +335,10 @@
   word-break: keep-all;
 }
 
+.main_gallery_wrapper button {
+  width: 100%; height: 100%;
+}
+
 .gallery_section1 {
   width: 100%; height: 398px;
   background-image: url("../../image/gallery/art/img-signature-theme01-1.jpg");
@@ -355,6 +359,46 @@
 
 /* =============================================================== */
 
+
+.modal_window {
+  display: none;
+  /* display: block; */
+  position: fixed; top: 0; left: 0;
+  z-index: 2000;
+  width: 100%; height: 100%;
+}
+.modal_data {
+  position: absolute; 
+  top: 50%; left: 50%; 
+  z-index: 100;
+  width: 1000px; height: 700px;
+  padding: 10px; padding-top: 60px;
+  border: 1px solid #333;
+
+  background-color: #fff;
+  border-radius: 0.5rem;
+  transform: translate(-50% , -50%);
+}
+.close_btn {
+  position: absolute; 
+  top: 5px; right: 10px;
+  width: 48px; height: 48px;
+}
+.close_btn button {
+  width: 100%; height: 100%;
+  background-color: #eee;
+  border-radius: 100%;
+  background-image: url("../../image/common/btn-close-48.svg");
+}
+
+.modal_content {
+  width: 100%; height: 100%;
+ background-color: #ccc;
+}
+.modal_bg {
+  width: 100%; height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
 
 
 
