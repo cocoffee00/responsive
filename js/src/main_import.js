@@ -5,9 +5,10 @@
   var body = $('body');
   var headBox = $('#headBox');
   var mainTab = $('#mainTab');
+  var mediaGallery = $('#mediaGallery');
   
   var baseUrl = "../page/";
-  var importPage = ['head_Box.html','maintab.html'];
+  var importPage = ['head_Box.html','maintab.html','mediaGallery.html'];
   
   
   var tab = 1023;
@@ -37,12 +38,18 @@
         mainTab.load(baseUrl+importPage[1],function(){
           body.append('<script src="../js/src/mainTab_labtop_pc.js"></script>');
         });
+        mediaGallery.load(baseUrl+importPage[2],function(){
+          body.append('<script src="../js/src/mediaGallery_labtop_pc.js"></script>');
+        });
       }else{
         headBox.load(baseUrl+importPage[0],function(){
           body.append('<script src="../js/src/headBox_tablet_phone.js"></script>');
         });
         mainTab.load(baseUrl+importPage[1],function(){
           body.append('<script src="../js/src/mainTab_tablet_phone.js"></script>');
+        });
+        mediaGallery.load(baseUrl+importPage[2],function(){
+          // body.append('<script src="../js/src/mainTab_labtop_pc.js"></script>');
         });
       }
     }//fnDeviceHeader()
