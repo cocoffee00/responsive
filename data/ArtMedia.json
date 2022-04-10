@@ -3,18 +3,18 @@
     "id" : "art_01",
     "contents" : "LG SIGNATURE",
     "img" : "img-signature-theme01-1.jpg",
-    "link" : "https://www.lge.co.kr/lg5-common/videos/ART-SIGNATURE-TV.mp4"
+    "link" : "ART-SIGNATURE-TV.webm"
   },
   {
     "id" : "art_02",
     "contents" : "냉장고",
     "img" : "img-signature-theme01-2.jpg",
-    "link" : "https://www.lge.co.kr/lg5-common/videos/ART-SIGNATURE-refrigerator.mp4"
+    "link" : "ART-SIGNATURE-refrigerator.webm"
   },
   {
     "id" : "art_03",
     "contents" : "세탁기",
     "img" : "img-signature-theme01-3.jpg",
-    "link" : "https://www.lge.co.kr/lg5-common/videos/ART-SIGNATURE-washer.mp4"
+    "link" : "ART-SIGNATURE-washer.webm"
   }
 ]
