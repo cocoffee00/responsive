@@ -1,0 +1,20 @@
+[
+  {
+    "id" : "lux_01",
+    "contents" : "올레드 TV",
+    "img" : "img-signature-theme02-1.jpg",
+    "link" : "https://www.lge.co.kr/lg5-common/videos/Luxury-SIGNATURE-TV.mp4"
+  },
+  {
+    "id" : "lux_02",
+    "contents" : "냉장고",
+    "img" : "img-signature-theme02-2.jpg",
+    "link" : "https://www.lge.co.kr/lg5-common/videos/Luxury-SIGNATURE-refrigerator.mp4"
+  },
+  {
+    "id" : "art_03",
+    "contents" : "세탁기",
+    "img" : "img-signature-theme02-3.jpg",
+    "link" : "https://www.lge.co.kr/lg5-common/videos/Luxury-SIGNATURE-washer.mp4"
+  }
+]
