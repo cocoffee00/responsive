@@ -28,6 +28,8 @@
   var gallerySection2 = document.querySelector('.gallery_section2');
   var gallerySection3 = document.querySelector('.gallery_section3');
 
+  var sectionBox = document.querySelectorAll('.img_cover');
+
   var mediaDt = document.querySelector('.dtTitle');
   var mediaDd = document.querySelector('.ddTitle');
   
@@ -88,22 +90,27 @@
     }
   });
 
-  // 각 미디어 갤러리 클릭 시 모달창 활성화
-  gallerySection1.addEventListener('click',function(e){
+
+  // // 각 미디어 갤러리 클릭 시 모달창 활성화
+  sectionBox[0].addEventListener('click',function(e){
     e.preventDefault();
     modalWindow.style.display = 'block';
-    // mediaLinkSetFn(0)
-  });
-  gallerySection2.addEventListener('click',function(e){
-    e.preventDefault();
-    modalWindow.style.display = 'block';
-    // mediaLinkSetFn(1)
-  });
-  gallerySection3.addEventListener('click',function(e){
-    e.preventDefault();
-    modalWindow.style.display = 'block';
-    // mediaLinkSetFn(2)
-  });
+  })
+  // gallerySection1.addEventListener('click',function(e){
+  //   e.preventDefault();
+  //   modalWindow.style.display = 'block';
+  //   // mediaLinkSetFn(0)
+  // });
+  // gallerySection2.addEventListener('click',function(e){
+  //   e.preventDefault();
+  //   modalWindow.style.display = 'block';
+  //   // mediaLinkSetFn(1)
+  // });
+  // gallerySection3.addEventListener('click',function(e){
+  //   e.preventDefault();
+  //   modalWindow.style.display = 'block';
+  //   // mediaLinkSetFn(2)
+  // });
 
   closeBtn.addEventListener('click',function(e){
     e.preventDefault();
