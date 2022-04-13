@@ -8,7 +8,7 @@
   var mediaGallery = $('#mediaGallery');
   
   var baseUrl = "../page/";
-  var importPage = ['head_Box.html','maintab.html','mediaGallery.html'];
+  var importPage = ['head_Box.html','mainTab.html','mediaGallery.html'];
   
   
   var tab = 1023;
