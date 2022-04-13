@@ -329,7 +329,12 @@
   /* background-color: #ffd; */
 }
 
-
+.modal_data { width: 100%; height: auto; }
+.close_btn { 
+  top: 10px; left: 50%;
+  width: 24px; height: 24px;
+  transform: translate(-50%);
+}
 
 
 
