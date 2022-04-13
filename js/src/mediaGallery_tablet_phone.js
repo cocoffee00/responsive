@@ -3,7 +3,7 @@
 
 (function($){
 
-  var artJsonData = $.getJSON('../data/artMedia.json');
+  var artJsonData = $.getJSON('../data/ArtMedia.json');
   var luxJsonData = $.getJSON('../data/LuxuryMedia.json');
   var livingJsonData = $.getJSON('../data/livingMedia.json');
 
