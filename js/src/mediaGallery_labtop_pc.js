@@ -1,6 +1,5 @@
 
 //json data 불러오기 - jquery
-
 (function($){
 
   var artJsonData = $.getJSON('../data/artMedia.json');
@@ -14,11 +13,13 @@
   var artData = aData;
   var luxData = lData;
   var livingData = liData;
+  var jsonDataArr = [artData,luxData,livingData];
+  var dataLen = jsonDataArr.length;
 
   var mainGalleryWrapper = document.querySelector('.main_gallery_wrapper');
 
   var nextBtn = document.querySelector('.g_next_btn');
-  // var prevBtn = document.querySelector('.g_prev_btn');
+  var prevBtn = document.querySelector('.g_prev_btn');
 
   var i = 0;
   
@@ -28,21 +29,27 @@
   var gallerySection2 = document.querySelector('.gallery_section2');
   var gallerySection3 = document.querySelector('.gallery_section3');
 
-  var sectionBox = document.querySelectorAll('.img_cover');
-
   var mediaDt = document.querySelector('.dtTitle');
   var mediaDd = document.querySelector('.ddTitle');
   
   var modalWindow = document.querySelector('.modal_window');
   var modalContent = document.querySelector('.modal_content');
   var closeBtn = document.querySelector('.close_btn');
+  var modalBg = document.querySelector('.modal_bg');
+  var sourceSet;
   
   var arturl = '../../image/gallery/art/';
   var luxurl = '../../image/gallery/lux/';
   var livingurl = '../../image/gallery/living/';
 
+
+  // 함수=========================================================//
+
   var artMediaSetFn = function(n) {
     if ( n== 0){
+      mainGalleryWrapper.classList.add('ART');
+      mainGalleryWrapper.classList.remove('LUX');
+      mainGalleryWrapper.classList.remove('LIV')
       mediaDt.innerText = 'Art & LG SIGNATURE';
       mediaDd.innerText = '기술이 예술의 경지에 오르면 작품이 됩니다.  가전, 작품이 되다';
       gallerySection1.style.backgroundImage = "url('"+arturl+artData[0].img+"')";
@@ -50,6 +57,9 @@
       gallerySection3.style.backgroundImage = "url('"+arturl+artData[2].img+"')";
     }
     else if ( n== 1){
+      mainGalleryWrapper.classList.add('LUX');
+      mainGalleryWrapper.classList.remove('ART');
+      mainGalleryWrapper.classList.remove('LIV');
       mediaDt.innerText = 'Luxury & LG SIGNATURE';
       mediaDd.innerText = '기술과 럭셔리함의 만남으로 공간의 품격이 한층 더 높아집니다.';
       gallerySection1.style.backgroundImage = "url('"+luxurl+luxData[0].img+"')";
@@ -57,6 +67,9 @@
       gallerySection3.style.backgroundImage = "url('"+luxurl+luxData[2].img+"')";
     }
     else {
+      mainGalleryWrapper.classList.add('LIV');
+      mainGalleryWrapper.classList.remove('ART');
+      mainGalleryWrapper.classList.remove('LUX');
       mediaDt.innerText = 'LIVING & LG SIGNATURE';
       mediaDd.innerText = '세상 가장 순수한 디자인을 만나보세요.';
       gallerySection1.style.backgroundImage = "url('"+livingurl+livingData[0].img+"')";
@@ -65,57 +78,92 @@
     }
   }; //mediaSetFn()
 
-  // 모달에서 비디오 재생 하기 수정
-  // var mediaLinkSetFn = (n)=> {
-  //   modalContent.innerHTML = '<video class="video" controls loop><source src="'+arturl+artData[n].link+'" /></video>'
-  //   var sourceSet = document.querySelector('.video');
-  //   sourceSet.style.width = ' 100%';
-  //   sourceSet.style.height = ' 100%';
-  //   if (sourceSet.paused) {
-  //     sourceSet.play();
-  //   }
-  // };
+  // 모달에서 비디오 재생 함수 
+  var mediaLinkSetFn = (n)=> {
+    if (mainGalleryWrapper.classList.contains('ART')){
+      modalContent.innerHTML = '<video class="video" controls loop><source src="'+arturl+artData[n].link+'" /></video>'
+    }else if (mainGalleryWrapper.classList.contains('LUX')){
+      modalContent.innerHTML = '<video class="video" controls loop><source src="'+luxurl+luxData[n].link+'" /></video>'
+    }else if(mainGalleryWrapper.classList.contains('LIV')){
+      modalContent.innerHTML = '<video class="video" controls loop><source src="'+livingurl+livingData[n].link+'" /></video>'
+    };
+    sourceSet = document.querySelector('.video');
+    sourceSet.style.width = ' 100%';
+    sourceSet.style.height = ' 100%';
+    if (sourceSet.paused) {
+      sourceSet.play();
+    };
+  }; //mediaLinkSetFn()
  
+  // 비디오 정지
+  function stopVideoFn(){
+    sourceSet.pause();
+  }; //function stopVideoFn()
+
+
   artMediaSetFn(0);
   
-  // next button 클릭 이벤트
+
+
+
+  // 이벤트=====================================================//
+  // next button 클릭
   count = 1;
   nextBtn.addEventListener('click',(n)=>{
     n = count;
-    ++count;
+    count++;
     artMediaSetFn(n);
-    console.log(n);
-    if(count >= 3){
+    if(count >= dataLen){
       count= 0 ;
-    }
+    };
   });
+  // prev button 클릭
+  prevBtn.addEventListener('click',(n)=>{
+    n = count;
+    count--;
+    if( count == 0 ){
+      artMediaSetFn(2);
+      count = dataLen
+    }else if(count == 2){
+      artMediaSetFn(1);
+    }else if(count == 1){
+      artMediaSetFn(0);
+    };
+   });
 
 
-  // // 각 미디어 갤러리 클릭 시 모달창 활성화
-  sectionBox[0].addEventListener('click',function(e){
+  // 각 미디어 갤러리 클릭 시 모달창 활성화
+  gallerySection1.addEventListener('click',function(e){
     e.preventDefault();
     modalWindow.style.display = 'block';
-  })
-  // gallerySection1.addEventListener('click',function(e){
-  //   e.preventDefault();
-  //   modalWindow.style.display = 'block';
-  //   // mediaLinkSetFn(0)
-  // });
-  // gallerySection2.addEventListener('click',function(e){
-  //   e.preventDefault();
-  //   modalWindow.style.display = 'block';
-  //   // mediaLinkSetFn(1)
-  // });
-  // gallerySection3.addEventListener('click',function(e){
-  //   e.preventDefault();
-  //   modalWindow.style.display = 'block';
-  //   // mediaLinkSetFn(2)
-  // });
+    mediaLinkSetFn(0)
+  });
+  gallerySection2.addEventListener('click',function(e){
+    e.preventDefault();
+    modalWindow.style.display = 'block';
+    mediaLinkSetFn(1)
+  });
+  gallerySection3.addEventListener('click',function(e){
+    e.preventDefault();
+    modalWindow.style.display = 'block';
+    mediaLinkSetFn(2)
+  });
 
+  // 모달 닫기 버튼 클릭 - 재생중인 동영상 정지 및 모달 창 닫기
   closeBtn.addEventListener('click',function(e){
     e.preventDefault();
+    stopVideoFn()
     modalWindow.style.display = 'none';
-  });
+  }); //closeBtn
+
+  // 모달 이외의 바탕 클릭시 동영상 정지 및 모달 창 닫기
+  modalBg.addEventListener('click',()=>{
+    stopVideoFn()
+    modalWindow.style.display = 'none';
+  })
+
+
+
 
 
       })
