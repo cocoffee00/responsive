@@ -49,7 +49,7 @@
           body.append('<script src="../js/src/mainTab_tablet_phone.js"></script>');
         });
         mediaGallery.load(baseUrl+importPage[2],function(){
-          // body.append('<script src="../js/src/mainTab_labtop_pc.js"></script>');
+          body.append('<script src="../js/src//mediaGallery_tablet_phone.js"></script>');
         });
       }
     }//fnDeviceHeader()
