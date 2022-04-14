@@ -10,6 +10,8 @@
     luxJsonData.done(function(lData){
       livingJsonData.done(function(liData){
   
+
+  //변수================================================//
   var artData = aData;
   var luxData = lData;
   var livingData = liData;
@@ -23,11 +25,14 @@
 
   var i = 0;
   
-  mainGalleryWrapper.innerHTML = '<div class="gallery_section_area"><div class="section_title"><dl><dt class="dtTitle"></dt><dd class="ddTitle"></dd></dl></div><div class="gallery_section1 img_cover"><button type="button"><span class="blind">LG SIGNATURE</span></button></div></div><div class="gallery_section2 img_cover"><button type="button"><span class="blind">냉장고</span></button></div><div class="gallery_section3 img_cover"><button type="button"><span class="blind">세탁기</span></button></div>';
+  // mainGalleryWrapper.innerHTML = '<div class="gallery_section_area"><div class="section_title"><dl><dt class="dtTitle"></dt><dd class="ddTitle"></dd></dl></div><div class="gallery_section1 img_cover"><div class="bg_cover"><button type="button"><span class="contents blind"></span></button></div></div></div><div class="gallery_section2 img_cover"><div class="bg_cover"><button type="button"><span class="contents blind"></span></button></div></div><div class="gallery_section3 img_cover"><div class="bg_cover"><button type="button"><span class="contents blind"></span></button></div></div>';
   
   var gallerySection1 = document.querySelector('.gallery_section1');
   var gallerySection2 = document.querySelector('.gallery_section2');
   var gallerySection3 = document.querySelector('.gallery_section3');
+
+  var mediaBox = document.querySelectorAll('.img_cover');
+  var bgCover = document.querySelectorAll('.bg_cover');
 
   var mediaDt = document.querySelector('.dtTitle');
   var mediaDd = document.querySelector('.ddTitle');
@@ -37,6 +42,7 @@
   var closeBtn = document.querySelector('.close_btn');
   var modalBg = document.querySelector('.modal_bg');
   var sourceSet;
+  var contents;
   
   var arturl = '../../image/gallery/art/';
   var luxurl = '../../image/gallery/lux/';
@@ -45,6 +51,7 @@
 
   // 함수=========================================================//
 
+  //현재 선택된 미디어에 맞는 테이터를 보여줄 함수 
   var artMediaSetFn = function(n) {
     if ( n== 0){
       mainGalleryWrapper.classList.add('ART');
@@ -78,7 +85,7 @@
     }
   }; //mediaSetFn()
 
-  // 모달에서 비디오 재생 함수 
+  // 모달에서 비디오 재생 함수 = contains()를 사용하여 불러올 데이터의 클래스를 구분하여 보여줄 영상 추가
   var mediaLinkSetFn = (n)=> {
     if (mainGalleryWrapper.classList.contains('ART')){
       modalContent.innerHTML = '<video class="video" controls loop><source src="'+arturl+artData[n].link+'" /></video>'
@@ -101,37 +108,101 @@
   }; //function stopVideoFn()
 
 
+
+  // 각 미디어의 contents 값 배치
+  var artContentsFn = function(){
+    i = 0;
+    for ( ; i<dataLen ; i+=1){
+        contents = mediaBox[i].querySelector('.contents');
+        var artInText = artData[i].contents;
+        contents.innerText = artInText;
+      }
+  }; //artContentsFn()
+  var luxContentsFn = function(){
+    i = 0;
+    for ( ; i<dataLen ; i+=1){
+        contents = mediaBox[i].querySelector('.contents');
+        var luxInText = luxData[i].contents;
+        contents.innerText = luxInText;
+      };
+  };//luxContentsFn()
+  var livContentsFn = function(){
+    i = 0;
+    for ( ; i<dataLen ; i+=1){
+        contents = mediaBox[i].querySelector('.contents');
+        var livInText = livingData[i].contents;
+        contents.innerText = livInText;
+      };
+  };//livContentsFn()
+
+
+  // 블라인드 적용된 contents의 블라인드 제거 및 css주가
+  var removeBlindFn = function(n){
+    contents = mediaBox[n].querySelector('.contents');
+    contents.classList.remove('blind');
+
+    contents.style.color = 'white';
+    contents.style.fontSize = '150%';
+    contents.style.textDecoration = 'none';
+    
+    bgCover[n].style.backgroundColor = "rgba(100, 100, 100, 0.5)%";
+    bgCover[n].style.transition = "0.3s all";
+    bgCover[n].style.opacity = "50";
+  };
+
+  // next slide 함수
+function slideNextFn(n){
+  n = count;
+  count++;
+  artMediaSetFn(n);
+  if(count >= dataLen){
+    count= 0 ;
+  };
+  if(mainGalleryWrapper.classList.contains('ART')){
+    artContentsFn()
+  }else if(mainGalleryWrapper.classList.contains('LUX')){
+    luxContentsFn()
+  }else if(mainGalleryWrapper.classList.contains('LIV')){
+    livContentsFn()
+  };
+}
+// prev slide 함수
+function slidePrevFn(n){
+n = count;
+  count--;
+  if( count == 0 ){
+    artMediaSetFn(2);
+    count = dataLen
+  }else if(count == 2){
+    artMediaSetFn(1);
+  }else if(count == 1){
+    artMediaSetFn(0);
+  };
+  if(mainGalleryWrapper.classList.contains('ART')){
+    artContentsFn()
+  }else if(mainGalleryWrapper.classList.contains('LUX')){
+    luxContentsFn()
+  }else if(mainGalleryWrapper.classList.contains('LIV')){
+    livContentsFn()
+  };
+}
+
   artMediaSetFn(0);
-  
-
-
+  artContentsFn()
 
   // 이벤트=====================================================//
   // next button 클릭
   count = 1;
   nextBtn.addEventListener('click',(n)=>{
-    n = count;
-    count++;
-    artMediaSetFn(n);
-    if(count >= dataLen){
-      count= 0 ;
-    };
+    slideNextFn(n)
   });
   // prev button 클릭
   prevBtn.addEventListener('click',(n)=>{
-    n = count;
-    count--;
-    if( count == 0 ){
-      artMediaSetFn(2);
-      count = dataLen
-    }else if(count == 2){
-      artMediaSetFn(1);
-    }else if(count == 1){
-      artMediaSetFn(0);
-    };
+    slidePrevFn(n);
    });
 
 
+   //======================================================미디어 각 클릭 이벤트 말고 다른 방법 생각해보기
   // 각 미디어 갤러리 클릭 시 모달창 활성화
   gallerySection1.addEventListener('click',function(e){
     e.preventDefault();
@@ -148,6 +219,38 @@
     modalWindow.style.display = 'block';
     mediaLinkSetFn(2)
   });
+
+  
+  // 각 미디어 캘러리 마우스 오버 시 css 적용
+  gallerySection1.addEventListener('mouseover',(n)=>{
+    gallerySection1.style.backgroundSize = "200%";
+    removeBlindFn(0);
+  });
+  gallerySection2.addEventListener('mouseover',(n)=>{
+    gallerySection2.style.backgroundSize = "200%";
+    removeBlindFn(1);
+  });
+  gallerySection3.addEventListener('mouseover',(n)=>{
+    gallerySection3.style.backgroundSize = "200%";
+    removeBlindFn(2);
+  });
+ 
+
+  // 각 미디어 캘러리 마우스 리브 시 css 해제
+  gallerySection1.addEventListener('mouseleave',()=>{
+    gallerySection1.style.backgroundSize = "";
+    bgCover[0].style.opacity = "0";
+  });
+  gallerySection2.addEventListener('mouseleave',()=>{
+    gallerySection2.style.backgroundSize = "";
+    bgCover[1].style.opacity = "0";
+  });
+  gallerySection3.addEventListener('mouseleave',()=>{
+    gallerySection3.style.backgroundSize = "";
+    bgCover[2].style.opacity = "0";
+  });
+
+
 
   // 모달 닫기 버튼 클릭 - 재생중인 동영상 정지 및 모달 창 닫기
   closeBtn.addEventListener('click',function(e){
