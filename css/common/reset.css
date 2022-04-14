@@ -27,7 +27,8 @@ a {
 }
 
 
-a:hover { text-decoration: underline;}
+/* a:hover { text-decoration: underline;} */
+a:hover { text-decoration: none;}
 button { 
   border: 0;
   padding: 0;
@@ -35,7 +36,8 @@ button {
   background-color: transparent;
   cursor: pointer;
 }
-button:hover { text-decoration: underline;}
+/* button:hover { text-decoration: underline;} */
+button:hover { text-decoration: none;}
 
 strong,b,em,i,u,ins,del {
   font-weight: normal;
