@@ -160,21 +160,21 @@ var y = galleryIndicator.getElementsByTagName('li');
 
 
 
-y.addEventListener('click',e =>{
-  var indiLi = e.target.parentElement.parentElement.children;
-  // console.log(indiLi);
-  var tempArr = [];
-  for( i=0 ; i < indiLi.length ; i+=1){
-    indiLi[i].classList.remove('action')
-  }
-  // for (var i = 0; i < 3; i++) {
-  //       tempArr.push(indiLi[i]);
-  //     };
-  //     return tempArr.filter(function(e){ 
-  //       return e != y; 
-  //     });
-  //     console.log(tempArr);
-})
+// y.addEventListener('click',e =>{
+//   var indiLi = e.target.parentElement.parentElement.children;
+//   // console.log(indiLi);
+//   var tempArr = [];
+//   for( i=0 ; i < indiLi.length ; i+=1){
+//     indiLi[i].classList.remove('action')
+//   }
+//   // for (var i = 0; i < 3; i++) {
+//   //       tempArr.push(indiLi[i]);
+//   //     };
+//   //     return tempArr.filter(function(e){ 
+//   //       return e != y; 
+//   //     });
+//   //     console.log(tempArr);
+// })
 
 // function indiFn (n){
 //   var tempArr = [];
