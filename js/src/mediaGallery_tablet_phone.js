@@ -1,4 +1,7 @@
 
+// 수정사항  
+// 비디오 미디어마다 클래스 이름을 주어 코드가 길어짐 => 추후 통합으로 수정하여 코드 줄이기
+// 인디케이터 터치(클릭)시 페이지 넘김 적용하기 
 
 
 (function($){
@@ -12,7 +15,7 @@
       livingJsonData.done(function(liData){
 
 
-        
+  //변수________________________________________________//
   var artData = aData;
   var luxData = lData;
   var livingData = liData;
@@ -23,8 +26,6 @@
 
   var nextBtn = document.querySelector('.g_next_btn');
   var prevBtn = document.querySelector('.g_prev_btn');
-
-  // mainGalleryWrapper.innerHTML = '<div class="gallery_section_area"><div class="section_title"><dl><dt class="dtTitle"></dt><dd class="ddTitle"></dd></dl></div><div class="gallery_section1 img_cover"><button type="button"><span class="blind">LG SIGNATURE</span></button></div></div><div class="gallery_section2 img_cover"><button type="button"><span class="blind">냉장고</span></button></div><div class="gallery_section3 img_cover"><button type="button"><span class="blind">세탁기</span></button></div>';
   
   var gallerySection1 = document.querySelector('.gallery_section1');
   var gallerySection2 = document.querySelector('.gallery_section2');
@@ -41,6 +42,7 @@
   var closeBtn = document.querySelector('.close_btn');
   var modalBg = document.querySelector('.modal_bg');
   var startX, endX, sourceSet;
+  var count = 1;
 
   var arturl = '../../image/gallery/art/';
   var luxurl = '../../image/gallery/lux/';
@@ -49,7 +51,7 @@
 
 
 
-  // 함수 =================================================//
+  // 함수________________________________________________//
 
   //현재 선택된 미디어에 맞는 테이터를 보여줄 함수 
   var artMediaSetFn = function(n) {
@@ -85,8 +87,10 @@
     }
   }; //mediaSetFn()
 
- // 모달에서 비디오 재생 함수 = contains()를 사용하여 불러올 데이터의 클래스를 구분하여 보여줄 영상 추가
+
+ // 모달에서 비디오 재생 함수
   var mediaLinkSetFn = (n)=> {
+    //contains()를 사용하여 불러올 데이터의 클래스를 구분하여 보여줄 영상 추가
     if (mainGalleryWrapper.classList.contains('ART')){
       modalContent.innerHTML = '<video class="video" controls loop><source src="'+arturl+artData[n].link+'" /></video>'
     }else if (mainGalleryWrapper.classList.contains('LUX')){
@@ -102,12 +106,14 @@
     };
   }; //mediaLinkSetFn()
  
-  // 비디오 정지
+
+  // 비디오 정지 함수
   function stopVideoFn(){
     sourceSet.pause();
   }; //function stopVideoFn()
 
-    // 각 미디어의 contents 값 배치  ===== 중복 코드 다시 생각해보기
+
+    // 각 미디어의 contents 값 배치  ++++ 중복 코드 다시 생각해보기
     var artContentsFn = function(){
       i = 0;
       for ( ; i<dataLen ; i+=1){
@@ -133,61 +139,51 @@
         };
     };//livContentsFn()
 
-  // 블라인드 적용된 contents의 블라인드 제거 및 css주가
-  var removeBlindFn = function(n){
-    contents = mediaBox[n].querySelector('.contents');
-    contents.classList.remove('blind');
 
-    contents.style.color = 'white';
-    contents.style.fontSize = '150%';
-    contents.style.textDecoration = 'none';
-    
-    bgCover[n].style.backgroundColor = "rgba(100, 100, 100, 0.5)%";
-    bgCover[n].style.transition = "0.3s all";
-    bgCover[n].style.opacity = "50";
-  };
+// 블라인드 적용된 contents의 블라인드 제거 및 css주가 함수
+var removeBlindFn = function(n){
+  contents = mediaBox[n].querySelector('.contents');
+  contents.classList.remove('blind');
+
+  contents.style.color = 'white';
+  contents.style.fontSize = '150%';
+  contents.style.textDecoration = 'none';
+  
+  bgCover[n].style.backgroundColor = "rgba(100, 100, 100, 0.5)%";
+  bgCover[n].style.transition = "0.3s all";
+  bgCover[n].style.opacity = "50";
+};
   
 
-  artMediaSetFn(0);
-  artContentsFn()
+// 인디케이터 클릭시 선택한 버튼에 클래스 추가 및 형제 요소에 클래스 삭제 함수
+var indiClickFn = function(v){
+  var indiLi = v.target;
+  var indiParent = indiLi.parentElement.children;
+  var tempArr = [];
+  var indiSiblings = [];
+    // 선택한 요소 및 형제 요소 tempArr에 넣음
+    for (var i = 0; i < 3; i++) {
+      tempArr.push(indiParent[i]);
+    };
+    // 선택 요소에만 클래스 추가
+    indiLi.classList.add('action');
 
-// __________________________________________________________
+  // filter를 사용하여 현재 선택한 요소 이외의 형제요소만 거른 후 indiSiblings에 넣음
+  var siblings = tempArr.filter(function(e){
+    return e != indiLi;
+  });
+    for (var i = 0; i < siblings.length; i++) {
+      indiSiblings.push(siblings[i]);
+    };
+  // 선택 요소 이외의 형제 요소의 클래스 삭제
+  for (var i = 0; i < indiSiblings.length; i++) {
+    indiSiblings[i].classList.remove('action');
+  };
+}; //indiClickFn(v)
 
-var galleryIndicator = document.querySelector('.gallery_indicator');
-var indiUl = document.getElementsByTagName('ul')[2];
-// var indiLi = indiUl.children;
-var y = galleryIndicator.getElementsByTagName('li');
 
-
-
-// y.addEventListener('click',e =>{
-//   var indiLi = e.target.parentElement.parentElement.children;
-//   // console.log(indiLi);
-//   var tempArr = [];
-//   for( i=0 ; i < indiLi.length ; i+=1){
-//     indiLi[i].classList.remove('action')
-//   }
-//   // for (var i = 0; i < 3; i++) {
-//   //       tempArr.push(indiLi[i]);
-//   //     };
-//   //     return tempArr.filter(function(e){ 
-//   //       return e != y; 
-//   //     });
-//   //     console.log(tempArr);
-// })
-
-// function indiFn (n){
-//   var tempArr = [];
-//   for (var i = 0; i < indiLi.length; i++) {
-//     tempArr.push(indiLi[i]);
-//   };
-//   console.log(n);
-//   n=count;
-//   tempArr[n].classList.add('action');
-//   if( tempArr[n] )
-// };
-
-// next slide 함수
+//이전,다음 버튼 클릭시 카운터로 다음 미디어를 보여줄 함수
+// next slide 
 function slideNextFn(n){
     n = count;
     count++;
@@ -203,7 +199,7 @@ function slideNextFn(n){
       livContentsFn()
     };
 }
-// prev slide 함수
+// prev slide 
 function slidePrevFn(n){
   n = count;
     count--;
@@ -225,11 +221,49 @@ function slidePrevFn(n){
 }
 
 
- // 이벤트=====================================================//
+artMediaSetFn(0);
+artContentsFn()
 
- // 타블렛 버튼============
-  // next button 클릭
-  count = 1;
+
+// 코드 수정 및 정리중 +++++++++++++++++++++++++++++++++++++++++++++++++++
+
+var galleryIndicator = document.querySelector('.gallery_indicator');
+var indiUl = document.getElementsByTagName('ul')[2];
+var indiLi = indiUl.children;
+
+
+// 터치 슬라이드시 인디케이터 버튼 컬러 변경 함수 ----- 수정중 현재 오른쪽으로 슬라이드만 적용
+function indiNextFn (n){
+  // console.log(n);
+  n=count;
+  if( n == 0){
+    indiLi[0].classList.add('action');
+    indiLi[1].classList.remove('action');
+    indiLi[2].classList.remove('action');
+  }else if( n == 1){
+    indiLi[0].classList.remove('action');
+    indiLi[1].classList.add('action');
+    indiLi[2].classList.remove('action');
+  }else if( n == 2){
+    indiLi[0].classList.remove('action');
+    indiLi[1].classList.remove('action');
+    indiLi[2].classList.add('action');
+  };
+};
+
+
+
+
+
+
+
+
+ // 이벤트________________________________________________//
+
+
+ // 타블렛에서 적용될 이벤트//
+ 
+// next button 클릭
   nextBtn.addEventListener('click',(n)=>{
     slideNextFn(n)
   });
@@ -254,10 +288,15 @@ function slidePrevFn(n){
    prevBtn.addEventListener('mouseleave',()=>{
     prevBtn.style.backgroundColor = '';
   })
-  //======================
+ 
 
-  // 스마트폰 인디케이터 이벤트===========
+
+
+
+
+  // 스마트폰에서 적용될 이벤트 ( 인디케이터 ) //
   
+  // 터치 슬라이드 이벤트
   mainGalleryWrapper.addEventListener('touchstart',function(e){
     startX = parseInt( e.changedTouches[0].clientX);
   });
@@ -265,20 +304,32 @@ function slidePrevFn(n){
     endX = parseInt( e.changedTouches[0].clientX);
     var resultX = startX - endX;
 
-    // indiFn(e)
+    indiNextFn(e) // 수정중
     
-    if ( resultX > 50){
+    if ( resultX > 30){
       slideNextFn(e);
-    }else if ( resultX < -50){
+    }else if ( resultX < -30){
       slidePrevFn(e);
-    }
+    };
   });
 
 
+  
+// 인디케이터 클릭 이벤트
+function indiClickEvt(){
+  for ( i=0; i<3; i+=1){
+    indiLi[i].addEventListener('click',e =>{
+      e.preventDefault();
+      indiClickFn(e)
+    });
+  };
+};//indiClickEvt()
+
+indiClickEvt();
 
 
 
-
+// 공통 이벤트 //
 
 // 각 미디어 갤러리 클릭 시 모달창 활성화
 gallerySection1.addEventListener('click',function(e){
@@ -326,7 +377,6 @@ gallerySection3.addEventListener('mouseleave',()=>{
   gallerySection3.style.backgroundSize = "";
   bgCover[2].style.opacity = "0";
 });
-
 
 
 // 모달 닫기 버튼 클릭 - 재생중인 동영상 정지 및 모달 창 닫기
