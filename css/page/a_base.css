@@ -214,6 +214,23 @@
   .main_title_area { display: none; }
   
   /* ================================================= */
+
+
+
+
+
+#tabArticle {
+  width: 100%; height: auto; min-height: 3500px;
+  padding-top: 100px; 
+  background-color: #ccc;
+}
+
+
+
+
+
+
+/* =========================================================== */
   
   
   #artGallery {
