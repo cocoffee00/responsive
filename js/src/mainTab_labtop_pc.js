@@ -1,5 +1,5 @@
 
-
+(function($){
 
   var mainTab = document.getElementById('mainTab');
   var contain = document.querySelector('.contain');
@@ -47,6 +47,7 @@
     for(var i = 0; i < tabMenu.length; i++){
       tabMenu[i].addEventListener('click',function(){
           window.scrollTo({ top: 900, left: 0, behavior: 'smooth' });
+          
       });
     };//for
   };//scrollTopFn()
@@ -55,16 +56,59 @@
   // 스크롤이 되면 실행될 함수 지정
   document.addEventListener('scroll',tabFixedFn);
 
-  scrollTopFn();
+  // scrollTopFn();
+
+
+
+
+
+  //==================================================test
+  var baseUrl = "../page/";
+  var importPage = ['head_Box.html','mainTab.html','mediaGallery.html'];
+  var mediaGallery = $('#mediaGallery');
+  var body = $('body');
+  var ff= document.querySelector('.tab_article_wrap');
+
+var tabArticle = document.getElementById('tabArticle');
+// console.log(tabArticle);
+
+
+
+
+//테스트중 ----------!!!
+  // var load_test = function() {
+  //   console.log('??');
+
+  //   ff.innerHTML='<object type="text/html" data="../page/mediaGallery.html" ></object>';
+  //   body.append('<script defer src="../js/src/mediaGallery_labtop_pc.js"></script>');
+  // }
+
+
+var po = fetch('../page/mediaGallery.html')
+
+
+
+
+
+
+
+
+
+  tabMenu[0].addEventListener('click',function(){
+    console.log('0');
+    load_test()
+  })
+
 
 
   // 이벤트______________________________________________________
 
 // 탭 메뉴의 각 버튼을 클릭시 각 내용물 보여주기
-// 탭 메뉴 button css 수정하기
+// 탭 메뉴 buttons css 수정하기
 
 
 
   // ==========================================
 
 
+})(jQuery);
