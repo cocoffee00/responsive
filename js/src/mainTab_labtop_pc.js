@@ -1,5 +1,6 @@
 
-(function($){
+
+
 
   var mainTab = document.getElementById('mainTab');
   var contain = document.querySelector('.contain');
@@ -22,9 +23,9 @@
   // console.log(mainTabTop);
 
   // mainTab의 원래 시작점에서 이동한 만큼의 좌표값( mainTab(0) 보다 위로 올라가면 자연수값/ 내려가면 음수값 )
-  var mainTabTop = mainTab.getBoundingClientRect().top;
+  var mainTabTopScroll = mainTab.getBoundingClientRect().top;
   // 화면 위치에 따라 값이 달라짐
-  // console.log(mainTabTop);
+  // console.log(mainTabTopScroll);
   
 
 
@@ -35,7 +36,7 @@
   // 일정영역 이상 넘어갈 시 메인탭을 상단에 고정시키는 함수
   function tabFixedFn(){
     //스크롤값과 고정될 메뉴바 위치를 비교해서 고정시킬 class 적용 또는 해제 
-    if ( window.pageYOffset >= mainTabTop ) {
+    if ( window.pageYOffset >= mainTabTopScroll ) {
       mainTab.classList.add("fixed");
     } else {
       mainTab.classList.remove("fixed");
@@ -56,59 +57,45 @@
   // 스크롤이 되면 실행될 함수 지정
   document.addEventListener('scroll',tabFixedFn);
 
-  // scrollTopFn();
+  scrollTopFn();
+
+
 
 
 
 
 
   //==================================================test
-  var baseUrl = "../page/";
-  var importPage = ['head_Box.html','mainTab.html','mediaGallery.html'];
-  var mediaGallery = $('#mediaGallery');
-  var body = $('body');
-  var ff= document.querySelector('.tab_article_wrap');
-
-var tabArticle = document.getElementById('tabArticle');
-// console.log(tabArticle);
-
-
 
 
 //테스트중 ----------!!!
-  // var load_test = function() {
-  //   console.log('??');
-
-  //   ff.innerHTML='<object type="text/html" data="../page/mediaGallery.html" ></object>';
-  //   body.append('<script defer src="../js/src/mediaGallery_labtop_pc.js"></script>');
-  // }
 
 
-var po = fetch('../page/mediaGallery.html')
+var artGallery = document.getElementById('artGallery');
+var mediaGallery = document.getElementById('mediaGallery');
+var brandPhilosophy = document.getElementById('brandPhilosophy');
 
 
 
+  function tabClickEventFn(v){
 
+    brandPhilosophy.classList.add('off')
+    tabMenu[v].addEventListener('click',function(){
+      if(v==0){
+        console.log('this is 0');
+        artGallery.classList.remove('off')
+        mediaGallery.classList.remove('off')
+        brandPhilosophy.classList.add('off')
+      }else if( v==1){
+        console.log('this is 1');
+        artGallery.classList.add('off')
+        mediaGallery.classList.add('off')
+        brandPhilosophy.classList.remove('off')
+      };
+    });
+  };//tabClickEventFn
 
-
-
-
-
-  tabMenu[0].addEventListener('click',function(){
-    console.log('0');
-    load_test()
-  })
-
-
-
-  // 이벤트______________________________________________________
-
-// 탭 메뉴의 각 버튼을 클릭시 각 내용물 보여주기
-// 탭 메뉴 buttons css 수정하기
-
-
-
-  // ==========================================
-
-
-})(jQuery);
+for(i=0;i<tabMenu.length;i++){
+  tabClickEventFn(i)
+};
+ 
