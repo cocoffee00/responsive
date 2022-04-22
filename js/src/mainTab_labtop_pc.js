@@ -74,24 +74,35 @@
 var artGallery = document.getElementById('artGallery');
 var mediaGallery = document.getElementById('mediaGallery');
 var brandPhilosophy = document.getElementById('brandPhilosophy');
+var exhibition = document.getElementById('exhibition');
 
 
 
   function tabClickEventFn(v){
 
     brandPhilosophy.classList.add('off')
+    exhibition.classList.add('off')
+
     tabMenu[v].addEventListener('click',function(){
       if(v==0){
         console.log('this is 0');
         artGallery.classList.remove('off')
         mediaGallery.classList.remove('off')
         brandPhilosophy.classList.add('off')
+        exhibition.classList.add('off')
       }else if( v==1){
         console.log('this is 1');
+        brandPhilosophy.classList.remove('off')
         artGallery.classList.add('off')
         mediaGallery.classList.add('off')
-        brandPhilosophy.classList.remove('off')
-      };
+        exhibition.classList.add('off')
+      }else if( v==2){
+        console.log('this is 2');
+        exhibition.classList.remove('off')
+        artGallery.classList.add('off')
+        mediaGallery.classList.add('off')
+        brandPhilosophy.classList.add('off')
+      }
     });
   };//tabClickEventFn
 
